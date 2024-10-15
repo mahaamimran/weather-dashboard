@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Similar head as index.html -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Tables</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Side Menu (Same as index.html) -->
+    <nav class="side-menu">
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Weather App Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="tables.html">Tables</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section class="forecast-table">
+            <h2>5-Day Temperature Forecast</h2>
+            <table id="forecast-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature (°C)</th>
+                        <th>Weather Condition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Forecast data will be dynamically injected here -->
+                </tbody>
+            </table>
+            <!-- Pagination Controls -->
+            <div class="pagination">
+                <button id="prev-page">Previous</button>
+                <span id="current-page">1</span>
+                <button id="next-page">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Link to JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
