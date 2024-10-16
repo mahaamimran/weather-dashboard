@@ -1,0 +1,29 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background: #fff; /* White background */
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .side-menu {
+        width: 60px;
+    }
+
+    main {
+        margin-left: 60px;
+    }
+
+    .charts-section {
+        flex-direction: column;
+    }
+}

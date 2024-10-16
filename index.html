@@ -8,7 +8,9 @@
     <!-- Link to Google Fonts Lexend -->
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
     <!-- Link to CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- External CSS for icons -->
@@ -43,7 +45,7 @@
                 <!-- Weather data will be injected here dynamically -->
             </div>
         </section>
-        
+
 
         <!-- Charts Section -->
         <section class="charts-section">
@@ -60,23 +62,27 @@
                 <p>Line Chart</p>
             </div>
         </section>
-
+        <br>
         <!-- Forecast Section -->
-        <section class="forecast">
+        <section class="forecast-widget">
             <h2>5-Day Forecast</h2>
-            <div id="forecast-container" class="forecast-grid"></div>
+            <div id="forecast-container" class="forecast-grid">
+                <!-- 5-Day forecast data will be injected here -->
+            </div>
+            <div class="pagination">
+                <button id="prev-page">Previous</button>
+                <span id="current-page">1 / 1</span>
+                <button id="next-page">Next</button>
+            </div>
+            
         </section>
 
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            <button id="prev-page">Previous</button>
-            <span id="current-page">1</span>
-            <button id="next-page">Next</button>
-        </div>
+
     </main>
 
     <!-- Link to JavaScript -->
     <script src="js/main.js"></script>
+    <script src="js/charts.js"></script>
 </body>
 
 </html>
