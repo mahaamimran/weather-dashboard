@@ -48,19 +48,26 @@
 }
 
 .chart-wrapper {
-    flex-grow: 1; /* Ensure canvas takes available space */
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .chart-container canvas {
     max-width: 100%;
-    height: 250px;
+    height: auto;
+    flex-grow: 1;
+    object-fit: contain;
 }
 
 .chart-label {
     margin-top: 10px;
     font-size: 1.2rem;
     color: #645394;
+    align-self: center; /* Keeps label at the bottom and centered */
 }
+
 
 
 /* Spinner */
