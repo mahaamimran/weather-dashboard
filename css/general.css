@@ -10,7 +10,7 @@ body {
     background: #fff; /* White background */
     color: #333;
     display: flex;
-    min-height: 100vh;
+    flex-direction: column;
 }
 
 /* Responsive adjustments */

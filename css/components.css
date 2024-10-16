@@ -1,5 +1,5 @@
 /* Weather Widget and Forecast Widget Styling */
-.weather-widget, .forecast-widget {
+.weather-widget {
     background-color: #f8f0fc; /* Lighter pastel background for widgets */
     padding: 20px;
     border-radius: 10px;
@@ -11,66 +11,22 @@
     justify-content: center;
 }
 
-.weather-details, .forecast-details {
+.weather-details {
     text-align: center;
 }
 
-.weather-details h2, .forecast-widget h2 {
+.weather-details h2{
     font-size: 1.8rem;
     margin-bottom: 10px;
     color: #645394; /* Dark purple for headings */
 }
 
-.weather-info, .forecast-info {
+.weather-info{
     justify-content: center;
     align-items: center;
     color: black;
 }
 
-/* Forecast Grid */
-.forecast-grid {
-    text-align: left;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.forecast-item-container {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    text-align: center;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #8472a1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pagination button:hover {
-    background-color: #645394;
-}
-
-.pagination span {
-    font-size: 1.2rem;
-    color: #645394;
-}
 
 /* Charts Section */
 .charts-section {
@@ -121,6 +77,170 @@
 }
 
 
+
+
+/* HELLO THIS IS FOR THE NEXT PART DO NOT CONFUSE or change anything above this line */
+/* Ensure the body and html fill the entire viewport */
+
+
+/* Ensure that the content area stretches to fill the screen */
+
+/* Fullscreen two-column layout */
+.content-columns {
+    display: flex;
+    flex: 1; /* Takes all remaining vertical space */
+    gap: 20px;
+    justify-content: space-between;
+    height: 100%; /* Full height */
+}
+
+/* Equal-sized columns */
+.left-column, .right-column {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f0fc; /* Light background */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%; /* Ensure the columns cover the full height */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chatbot widget styling */
+.chatbot-widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.chat-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    max-height: 250px;
+}
+
+.chat-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    max-height: 300px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #d1e7dd;
+    color: #333;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #645394;
+    color: white;
+}
+
+.typing-indicator {
+    font-style: italic;
+    color: #8472a1;
+    padding: 10px;
+    align-self: flex-start;
+}
+
+/* Chat input container */
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    background-color: #faf2fc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.chat-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bfa1c5;
+    background-color: #faf2fc;
+}
+
+.send-btn {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #8472a1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background-color: #645394;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #645394;
+    color: white;
+}
+
+td {
+    background-color: #f8f0fc;
+}
+
+/* Pagination styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    background-color: #8472a1;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+}
+
+.pagination span {
+    font-size: 1.2rem;
+    color: #645394;
+}
+
 /* Filter Buttons Styling */
 .filter-buttons {
     display: flex;
@@ -141,4 +261,24 @@
 
 .filter-btn:hover {
     background-color: #645394;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .side-menu {
+        width: 60px;
+    }
+
+    main {
+        margin-left: 60px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-top: 10px;
+    }
 }

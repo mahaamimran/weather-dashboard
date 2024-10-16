@@ -1,5 +1,3 @@
-// js/chatbot.js
-
 const geminiApiKey = 'AIzaSyCpXzI_slJ75hxey2PhYtIaD_Oa4y-PQIA';
 
 document.getElementById('send-btn').addEventListener('click', sendMessage);
@@ -16,6 +14,9 @@ function sendMessage() {
 
     displayMessage(message, 'user');
     input.value = '';
+
+    // Show typing indicator
+    displayTypingIndicator();
 
     // Determine if the query is weather-related
     if (isWeatherQuery(message)) {
@@ -34,6 +35,21 @@ function displayMessage(message, sender) {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+function displayTypingIndicator() {
+    const chatBody = document.getElementById('chat-body');
+    const typingIndicator = document.createElement('div');
+    typingIndicator.id = 'typing-indicator';
+    typingIndicator.classList.add('typing-indicator');
+    typingIndicator.textContent = 'Gemini is typing...';
+    chatBody.appendChild(typingIndicator);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typing-indicator');
+    if (typingIndicator) typingIndicator.remove();
+}
+
 function isWeatherQuery(message) {
     const weatherKeywords = ['weather', 'temperature', 'forecast', 'rain', 'sunny', 'cloudy', 'wind', 'humidity'];
     return weatherKeywords.some(keyword => message.toLowerCase().includes(keyword));
@@ -43,6 +59,7 @@ async function handleWeatherQuery(message) {
     // Extract city name from the message
     const city = extractCityFromMessage(message);
     if (!city) {
+        removeTypingIndicator();
         displayMessage("Please specify a city name for the weather information.", 'bot');
         return;
     }
@@ -50,8 +67,10 @@ async function handleWeatherQuery(message) {
     try {
         const weatherData = await fetchWeatherData(city);
         const response = formatWeatherResponse(weatherData);
+        removeTypingIndicator();
         displayMessage(response, 'bot');
     } catch (error) {
+        removeTypingIndicator();
         displayMessage(error.message, 'bot');
     }
 }
@@ -88,8 +107,10 @@ function formatWeatherResponse(data) {
 async function handleGeneralQuery(message) {
     try {
         const response = await fetchGeminiResponse(message);
+        removeTypingIndicator();
         displayMessage(response, 'bot');
     } catch (error) {
+        removeTypingIndicator();
         displayMessage("I'm sorry, I couldn't process your request.", 'bot');
     }
 }

@@ -4,24 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <!-- Link to Google Fonts Lexend -->
+    <title>Tables Page</title>
+
+    <!-- Reuse the same CSS files from index.html -->
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css"> <!-- CSS for components -->
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- External CSS for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- Side Menu -->
-    <nav class="side-menu">
-        <div class="logo">
-            <!-- External Logo -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Weather_icon_-_sunny.svg/1200px-Weather_icon_-_sunny.svg.png" alt="Weather App Logo" style="width:100px;">
-        </div>
+    <nav id="sidebar" class="side-menu">
+        <a href="index.html" class="logo-link">
+            <img src="assets/images/logo.png" alt="Weather App Logo" class="logo">
+        </a>
         <ul>
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="tables.html">Tables</a></li>
@@ -30,52 +29,70 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Search Bar and User Profile -->
+        <!-- Top Bar -->
         <div class="top-bar">
-            <input type="text" id="city-input" placeholder="Search city" class="search-bar">
-            <button id="search-btn"><i class="fas fa-search"></i></button>
-            <button id="geolocation-btn">Use My Location</button>
-            <div class="user-profile">
-                <!-- External User Profile Image -->
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Profile" style="width:50px;">
+            <div class="search-container">
+                <input type="text" id="city-input" placeholder="Search city" class="search-bar">
+                <button id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
             </div>
         </div>
+        <section>
 
-        <!-- Loading Spinner -->
-        <div id="spinner" class="spinner hidden"></div>
-
-        <!-- Weather Data Section -->
-        <section class="weather-widget">
-            <div class="weather-details" id="weather-details">
-                <h2>Weather Data Based on City</h2>
-                <!-- Weather information will be dynamically injected here -->
+            <div class="filter-buttons">
+                <button id="sort-asc" class="filter-btn">Sort Ascending</button>
+                <button id="sort-desc" class="filter-btn">Sort Descending</button>
+                <button id="filter-rain" class="filter-btn">Show Only Rainy Days</button>
+                <button id="show-all" class="filter-btn">Show All</button>
+                <button id="show-highest-temp" class="filter-btn">Show Highest Temp</button>
             </div>
         </section>
+        <br>
+        <!-- Two Columns: One for the 5-day forecast, one for the chatbot -->
+        <div class="content-columns">
+            <div class="left-column" id="forecast-container">
+                <h2>5-Day Forecast</h2>
+                <!-- Table for forecast -->
+                <table id="forecast-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Temperature (°C)</th>
+                            <th>Condition</th>
+                        </tr>
+                    </thead>
+                    <tbody id="forecast-body">
+                        <!-- Forecast data will be populated here -->
+                    </tbody>
+                </table>
 
-        <!-- 5-Day Weather Forecast -->
-        <section class="forecast">
-            <h2>5-Day Forecast</h2>
-            <div id="forecast-container" class="forecast-grid"></div>
-        </section>
+                <!-- Pagination controls -->
+                <div class="pagination">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="page-info">Page 1</span>
+                    <button id="next-page">Next</button>
+                </div>
+            </div>
 
-        <!-- Sorting and Filtering Controls -->
-        <div class="filters">
-            <button id="sort-asc-btn">Sort: Ascending Temp</button>
-            <button id="sort-desc-btn">Sort: Descending Temp</button>
-            <button id="highest-temp-btn">Show Highest Temp</button>
-            <button id="rain-filter-btn">Show Rainy Days</button>
+            <div class="right-column" id="chatbot-container">
+                <section class="chatbot-widget">
+                    <h2>Chat with Gemini</h2>
+                    <div id="chat-body" class="chat-body"></div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chat-input" class="chat-input" placeholder="Ask something...">
+                        <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </section>
+
+
+            </div>
         </div>
-
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            <button id="prev-page">Previous</button>
-            <span id="current-page">1</span>
-            <button id="next-page">Next</button>
-        </div>
+        <br>
+       
     </main>
 
     <!-- Link to JavaScript -->
-    <script src="js/main.js"></script>
+    <script src="js/tables.js"></script>
+    <script src="js/chatbot.js"></script>
 </body>
 
 </html>
