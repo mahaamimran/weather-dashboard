@@ -3,21 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <!-- Link to Google Fonts Lexend -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
     <!-- Link to CSS -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- External CSS for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- Side Menu -->
-    <nav class="side-menu">
-        <div class="logo">
-            <img src="assets/images/logo.png" alt="Weather App Logo">
-        </div>
+    <nav id="sidebar" class="side-menu">
         <ul>
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="tables.html">Tables</a></li>
@@ -26,47 +26,57 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Weather Widget -->
-        <section class="weather-widget">
-            <div class="search-bar">
-                <input type="text" id="city-input" placeholder="Enter city name">
-                <button id="search-btn">Search</button>
+        <!-- Search Bar and User Profile -->
+        <div class="top-bar">
+            <input type="text" id="city-input" placeholder="Search city" class="search-bar">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+            <div class="user-profile">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Profile" style="width:50px;">
             </div>
+        </div>
+
+        <!-- Spinner for loading data -->
+        <div id="spinner" class="spinner hidden"></div>
+
+        <section class="weather-widget">
             <div class="weather-details" id="weather-details">
-                <!-- Weather information will be dynamically injected here -->
+                <!-- Weather data will be injected here dynamically -->
             </div>
         </section>
+        
 
         <!-- Charts Section -->
         <section class="charts-section">
-            <canvas id="barChart"></canvas>
-            <canvas id="doughnutChart"></canvas>
-            <canvas id="lineChart"></canvas>
-        </section>
-
-        <!-- Chatbot Integration -->
-        <section class="chatbot-section">
-            <!-- Add inside chatbot-section in index.html -->
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h3>Weather Chatbot</h3>
-                </div>
-                <div class="chat-body" id="chat-body">
-                    <!-- Chat messages will appear here -->
-                </div>
-                <div class="chat-footer">
-                    <input type="text" id="chat-input" placeholder="Type your message...">
-                    <button id="send-btn">Send</button>
-                </div>
+            <div class="chart-container">
+                <canvas id="barChart"></canvas>
+                <p>Vertical Bar Chart</p>
             </div>
-
+            <div class="chart-container">
+                <canvas id="doughnutChart"></canvas>
+                <p>Doughnut Chart</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="lineChart"></canvas>
+                <p>Line Chart</p>
+            </div>
         </section>
+
+        <!-- Forecast Section -->
+        <section class="forecast">
+            <h2>5-Day Forecast</h2>
+            <div id="forecast-container" class="forecast-grid"></div>
+        </section>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button id="prev-page">Previous</button>
+            <span id="current-page">1</span>
+            <button id="next-page">Next</button>
+        </div>
     </main>
 
     <!-- Link to JavaScript -->
     <script src="js/main.js"></script>
-    <script src="js/charts.js"></script>
-    <script src="js/chatbot.js"></script>
 </body>
 
 </html>

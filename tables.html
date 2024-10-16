@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Similar head as index.html -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Tables</title>
+    <title>Weather Dashboard</title>
+    <!-- Link to Google Fonts Lexend -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Link to CSS -->
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- External CSS for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Side Menu (Same as index.html) -->
+    <!-- Side Menu -->
     <nav class="side-menu">
         <div class="logo">
-            <img src="assets/images/logo.png" alt="Weather App Logo">
+            <!-- External Logo -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Weather_icon_-_sunny.svg/1200px-Weather_icon_-_sunny.svg.png" alt="Weather App Logo" style="width:100px;">
         </div>
         <ul>
             <li><a href="index.html">Dashboard</a></li>
@@ -21,30 +30,52 @@
 
     <!-- Main Content -->
     <main>
-        <section class="forecast-table">
-            <h2>5-Day Temperature Forecast</h2>
-            <table id="forecast-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temperature (°C)</th>
-                        <th>Weather Condition</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Forecast data will be dynamically injected here -->
-                </tbody>
-            </table>
-            <!-- Pagination Controls -->
-            <div class="pagination">
-                <button id="prev-page">Previous</button>
-                <span id="current-page">1</span>
-                <button id="next-page">Next</button>
+        <!-- Search Bar and User Profile -->
+        <div class="top-bar">
+            <input type="text" id="city-input" placeholder="Search city" class="search-bar">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+            <button id="geolocation-btn">Use My Location</button>
+            <div class="user-profile">
+                <!-- External User Profile Image -->
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Profile" style="width:50px;">
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="spinner" class="spinner hidden"></div>
+
+        <!-- Weather Data Section -->
+        <section class="weather-widget">
+            <div class="weather-details" id="weather-details">
+                <h2>Weather Data Based on City</h2>
+                <!-- Weather information will be dynamically injected here -->
             </div>
         </section>
+
+        <!-- 5-Day Weather Forecast -->
+        <section class="forecast">
+            <h2>5-Day Forecast</h2>
+            <div id="forecast-container" class="forecast-grid"></div>
+        </section>
+
+        <!-- Sorting and Filtering Controls -->
+        <div class="filters">
+            <button id="sort-asc-btn">Sort: Ascending Temp</button>
+            <button id="sort-desc-btn">Sort: Descending Temp</button>
+            <button id="highest-temp-btn">Show Highest Temp</button>
+            <button id="rain-filter-btn">Show Rainy Days</button>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button id="prev-page">Previous</button>
+            <span id="current-page">1</span>
+            <button id="next-page">Next</button>
+        </div>
     </main>
 
     <!-- Link to JavaScript -->
     <script src="js/main.js"></script>
 </body>
+
 </html>

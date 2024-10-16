@@ -1,6 +1,7 @@
-// js/main.js
-
 const apiKey = '796af28caa3c79132d85d04210976a50';
+let allForecastData = [];
+let currentPage = 1;
+const entriesPerPage = 5;
 
 document.getElementById('search-btn').addEventListener('click', () => {
     const city = document.getElementById('city-input').value.trim();
@@ -14,9 +15,11 @@ document.getElementById('search-btn').addEventListener('click', () => {
 
 async function fetchCurrentWeather(city) {
     try {
+        showSpinner();
         const response = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
         );
+        hideSpinner();
         if (!response.ok) {
             throw new Error('City not found.');
         }
@@ -40,53 +43,58 @@ function displayCurrentWeather(data) {
         <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Weather Icon">
     `;
 
-    // Change background based on weather condition
     changeBackground(data.weather[0].main);
 }
 
+
 function changeBackground(condition) {
     const weatherDetails = document.getElementById('weather-details');
+    let backgroundImage;
+
     switch (condition.toLowerCase()) {
         case 'clear':
-            weatherDetails.style.backgroundImage = "url('assets/images/clear.jpg')";
+            backgroundImage = "url('https://source.unsplash.com/1600x900/?clear-sky')";
             break;
         case 'clouds':
-            weatherDetails.style.backgroundImage = "url('assets/images/cloudy.jpg')";
+            backgroundImage = "url('https://source.unsplash.com/1600x900/?cloudy')";
             break;
         case 'rain':
-            weatherDetails.style.backgroundImage = "url('assets/images/rainy.jpg')";
+            backgroundImage = "url('https://source.unsplash.com/1600x900/?rain')";
             break;
         case 'snow':
-            weatherDetails.style.backgroundImage = "url('assets/images/snowy.jpg')";
+            backgroundImage = "url('https://source.unsplash.com/1600x900/?snow')";
             break;
-        // Add more cases as needed
         default:
-            weatherDetails.style.backgroundImage = "url('assets/images/default.jpg')";
+            backgroundImage = "url('https://via.placeholder.com/1600x900?text=No+Image+Available')";
     }
+
+    weatherDetails.style.backgroundImage = backgroundImage;
     weatherDetails.style.backgroundSize = 'cover';
     weatherDetails.style.color = '#fff';
 }
-// js/main.js (continued)
+
+
 
 async function fetchFiveDayForecast(city) {
     try {
+        showSpinner();
         const response = await fetch(
             `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
         );
+        hideSpinner();
         if (!response.ok) {
             throw new Error('Failed to fetch 5-day forecast.');
         }
         const data = await response.json();
         processFiveDayForecast(data);
+        initializeCharts(data);
     } catch (error) {
         console.error(error);
     }
 }
 
 function processFiveDayForecast(data) {
-    // Extract daily forecasts
     const dailyData = {};
-
     data.list.forEach(entry => {
         const date = entry.dt_txt.split(' ')[0];
         if (!dailyData[date]) {
@@ -95,14 +103,13 @@ function processFiveDayForecast(data) {
                 weather: []
             };
         }
-        dailyData[date].push(entry.main.temp);
-        dailyData[date].push(entry.weather[0].main);
+        dailyData[date].temp.push(entry.main.temp);
+        dailyData[date].weather.push(entry.weather[0].main);
     });
 
-    // Simplify data: average temperature and most frequent weather condition
     const simplifiedData = Object.keys(dailyData).map(date => {
-        const temps = dailyData[date].filter(item => typeof item === 'number');
-        const weathers = dailyData[date].filter(item => typeof item === 'string');
+        const temps = dailyData[date].temp;
+        const weathers = dailyData[date].weather;
         const avgTemp = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(2);
         const weatherCounts = weathers.reduce((acc, curr) => {
             acc[curr] = acc[curr] ? acc[curr] + 1 : 1;
@@ -116,25 +123,70 @@ function processFiveDayForecast(data) {
         };
     });
 
-    // Pass the simplified data to charts and tables
-    initializeCharts(simplifiedData);
-    populateForecastTable(simplifiedData);
-}
-// js/main.js (continued)
-
-let currentPage = 1;
-const entriesPerPage = 10;
-let allForecastData = [];
-
-function processFiveDayForecast(data) {
-    // Previous processing...
     allForecastData = simplifiedData;
-    initializeCharts(simplifiedData);
-    populateForecastTable(simplifiedData);
+    populateForecastTable(allForecastData);
+    updatePaginationControls();
+}
+
+function initializeCharts(forecastData) {
+    const labels = forecastData.list.map(item => item.dt_txt.split(' ')[0]);
+
+    // Bar Chart (Temperatures for 5 days)
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Temperature (°C)',
+                data: forecastData.list.map(item => item.main.temp),
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+
+    // Doughnut Chart (Weather conditions)
+    const weatherCounts = forecastData.list.reduce((acc, item) => {
+        const weather = item.weather[0].main;
+        acc[weather] = acc[weather] ? acc[weather] + 1 : 1;
+        return acc;
+    }, {});
+    const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+    new Chart(doughnutCtx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(weatherCounts),
+            datasets: [{
+                data: Object.values(weatherCounts),
+                backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                borderWidth: 1
+            }]
+        }
+    });
+
+    // Line Chart (Temperature over time)
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Temperature (°C)',
+                data: forecastData.list.map(item => item.main.temp),
+                backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1,
+                fill: false
+            }]
+        }
+    });
 }
 
 function populateForecastTable(data) {
-    const tableBody = document.querySelector('#forecast-table tbody');
+    const tableBody = document.querySelector('#forecast-container');
     tableBody.innerHTML = '';
 
     const start = (currentPage - 1) * entriesPerPage;
@@ -142,22 +194,20 @@ function populateForecastTable(data) {
     const paginatedData = data.slice(start, end);
 
     paginatedData.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${item.date}</td>
-            <td>${item.avgTemp} °C</td>
-            <td>${item.weather}</td>
+        const forecastItem = document.createElement('div');
+        forecastItem.classList.add('forecast-item');
+        forecastItem.innerHTML = `
+            <h3>${item.date}</h3>
+            <p>Temp: ${item.avgTemp} °C</p>
+            <p>${item.weather}</p>
         `;
-        tableBody.appendChild(row);
+        tableBody.appendChild(forecastItem);
     });
-
-    updatePaginationControls();
 }
 
 function updatePaginationControls() {
     const totalPages = Math.ceil(allForecastData.length / entriesPerPage);
     document.getElementById('current-page').textContent = `${currentPage} / ${totalPages}`;
-
     document.getElementById('prev-page').disabled = currentPage === 1;
     document.getElementById('next-page').disabled = currentPage === totalPages;
 }
@@ -177,8 +227,8 @@ document.getElementById('next-page').addEventListener('click', () => {
         populateForecastTable(allForecastData);
     }
 });
-// js/main.js (continued)
 
+// Debounce the input for city search
 let debounceTimer;
 document.getElementById('city-input').addEventListener('input', () => {
     clearTimeout(debounceTimer);
@@ -190,3 +240,11 @@ document.getElementById('city-input').addEventListener('input', () => {
         }
     }, 500); // Adjust debounce delay as needed
 });
+
+function showSpinner() {
+    document.getElementById('spinner').classList.remove('hidden');
+}
+
+function hideSpinner() {
+    document.getElementById('spinner').classList.add('hidden');
+}
