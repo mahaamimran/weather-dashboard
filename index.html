@@ -20,22 +20,27 @@
 <body>
     <!-- Side Menu -->
     <nav id="sidebar" class="side-menu">
+        <a href="index.html" class="logo-link">
+            <img src="assets/images/logo.png" alt="Weather App Logo" class="logo">
+        </a>
+
         <ul>
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="tables.html">Tables</a></li>
         </ul>
     </nav>
-
     <!-- Main Content -->
     <main>
-        <!-- Search Bar and User Profile -->
+        <!-- Updated Top Bar -->
         <div class="top-bar">
-            <input type="text" id="city-input" placeholder="Search city" class="search-bar">
-            <button id="search-btn"><i class="fas fa-search"></i></button>
-            <div class="user-profile">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Profile" style="width:50px;">
+            <div class="search-container">
+                <input type="text" id="city-input" placeholder="Search city" class="search-bar">
+                <button id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
             </div>
+
+
         </div>
+
 
         <!-- Spinner for loading data -->
         <div id="spinner" class="spinner hidden"></div>
@@ -74,15 +79,25 @@
                 <span id="current-page">1 / 1</span>
                 <button id="next-page">Next</button>
             </div>
-            
-        </section>
 
+        </section>
+        <section>
+
+            <div class="filter-buttons">
+                <button id="sort-asc" class="filter-btn">Sort Ascending</button>
+                <button id="sort-desc" class="filter-btn">Sort Descending</button>
+                <button id="filter-rain" class="filter-btn">Show Only Rainy Days</button>
+                <button id="show-all" class="filter-btn">Show All</button>
+                <button id="show-highest-temp" class="filter-btn">Show Highest Temp</button>
+            </div>
+        </section>
 
     </main>
 
     <!-- Link to JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/charts.js"></script>
+    <script src="js/filters.js"></script>
 </body>
 
 </html>
