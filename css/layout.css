@@ -1,22 +1,44 @@
-/* Side Menu */
+/* Sidebar default styling */
 .side-menu {
     width: 250px;
-    background-color: #645394; /* Dark purple aesthetic */
+    background-color: #645394;
     color: #fff;
     height: 100vh;
     position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: width 0.3s ease;
+}
+
+/* Hidden sidebar on small screens */
+.side-menu.hidden {
+    transform: translateX(-100%); /* Move sidebar off-screen */
 }
 
 
-/* Logo */
+/* When the screen width is less than 768px, show the hamburger */
+@media (max-width: 768px) {
+    .side-menu {
+        transform: translateX(-100%); /* Hide sidebar by default on small screens */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger on small screens */
+    }
+
+    main {
+        margin-left: 0; /* Reset main content margin when sidebar is hidden */
+    }
+
+    .side-menu.active {
+        transform: translateX(0); /* Show sidebar when active */
+    }
+}
+
 .logo {
-    width: 80px; /* Smaller logo */
+    width: 80px;
     margin: 20px 0;
-    filter: brightness(0) invert(1); /* Makes the logo white */
+    filter: brightness(0) invert(1);
 }
 
 .logo-link {
@@ -26,12 +48,6 @@
     justify-content: center;
 }
 
-.logo-top {
-    width: 80px;
-    margin-right: 20px;
-}
-
-/* Sidebar List */
 .side-menu ul {
     list-style: none;
     padding: 0;
@@ -55,24 +71,6 @@
     background-color: #8472a1;
     color: #fff;
     border-radius: 50px;
-    height: max-content;
-}
-
-/* Toggle Button */
-.toggle-btn {
-    margin-top: auto;
-    background-color: #8472a1;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 80%;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.toggle-btn:hover {
-    background-color: #645394;
 }
 
 /* Main Content */
@@ -82,16 +80,14 @@ main {
     transition: margin-left 0.3s ease;
 }
 
-.side-menu.collapsed + main {
-    margin-left: 60px;
-}
+
 
 /* Top Bar */
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #645394; 
+    background-color: #645394;
     padding: 10px 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -99,6 +95,7 @@ main {
     color: white;
 }
 
+/* Search Bar */
 .search-container {
     display: flex;
     align-items: center;
@@ -109,7 +106,7 @@ main {
     padding: 10px;
     border: 1px solid #bfa1c5;
     border-radius: 5px;
-    background-color: #faf2fc; /* Very light pastel purple */
+    background-color: #faf2fc;
 }
 
 .search-btn {
@@ -122,27 +119,33 @@ main {
     margin-left: 10px;
 }
 
-.search-btn:hover {
-    background-color: #645394; /* Slightly darker purple on hover */
-}
-
-/* Search Button Icon */
-.search-btn i {
-    font-size: 16px;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    /* Side Menu should collapse and hamburger icon should show */
     .side-menu {
-        width: 60px;
+        width: 0;
+        overflow: hidden;
+        transition: width 0.3s ease;
     }
 
+    .hamburger {
+        display: block; /* Show hamburger on small screens */
+    }
+
+    .side-menu.active {
+        width: 250px;
+    }
+
+    /* Main content should take the full width */
     main {
-        margin-left: 60px;
+        margin-left: 0;
+        padding: 15px;
     }
 
+    /* Adjust the top-bar layout */
     .top-bar {
         flex-direction: column;
+        text-align: center;
     }
 
     .search-bar {

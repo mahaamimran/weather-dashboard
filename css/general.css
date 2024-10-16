@@ -7,23 +7,30 @@
 
 body {
     font-family: 'Lexend', sans-serif;
-    background: #fff; /* White background */
+    background: #fff;
     color: #333;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f0fc; /* Default light background color */
+    transition: background-image 0.5s ease-in-out; /* Smooth transition when background changes */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .side-menu {
-        width: 60px;
-    }
-
-    main {
-        margin-left: 60px;
+    body {
+        flex-direction: column;
     }
 
     .charts-section {
-        flex-direction: column;
+        flex-direction: column; /* Stack the charts vertically on smaller screens */
+    }
+
+    .chart-container {
+        max-width: 100%; /* Ensure charts fit the screen on smaller devices */
+        margin-bottom: 20px; /* Add some spacing between the charts */
     }
 }

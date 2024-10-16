@@ -1,5 +1,3 @@
-const geminiApiKey = 'AIzaSyCpXzI_slJ75hxey2PhYtIaD_Oa4y-PQIA';
-
 document.getElementById('send-btn').addEventListener('click', sendMessage);
 document.getElementById('chat-input').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -22,7 +20,7 @@ function sendMessage() {
     if (isWeatherQuery(message)) {
         handleWeatherQuery(message);
     } else {
-        handleGeneralQuery(message);
+        handleGeneralQuery(message);  // Handles non-weather queries
     }
 }
 
@@ -30,7 +28,14 @@ function displayMessage(message, sender) {
     const chatBody = document.getElementById('chat-body');
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', `${sender}-message`);
-    messageDiv.textContent = message;
+    
+    // Add some emoji flair to user messages
+    if (sender === 'user') {
+        messageDiv.textContent = `🙋‍♂️ ${message}`;
+    } else {
+        messageDiv.textContent = message;
+    }
+    
     chatBody.appendChild(messageDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
@@ -56,11 +61,10 @@ function isWeatherQuery(message) {
 }
 
 async function handleWeatherQuery(message) {
-    // Extract city name from the message
     const city = extractCityFromMessage(message);
     if (!city) {
         removeTypingIndicator();
-        displayMessage("Please specify a city name for the weather information.", 'bot');
+        displayMessage("🌍 Please specify a city name for the weather information.", 'bot');
         return;
     }
 
@@ -71,12 +75,11 @@ async function handleWeatherQuery(message) {
         displayMessage(response, 'bot');
     } catch (error) {
         removeTypingIndicator();
-        displayMessage(error.message, 'bot');
+        displayMessage(`❌ Sorry, I couldn't find the weather for that city.`, 'bot');
     }
 }
 
 function extractCityFromMessage(message) {
-    // Simple extraction logic (can be enhanced with NLP)
     const words = message.split(' ');
     const cityIndex = words.findIndex(word => ['in', 'for'].includes(word.toLowerCase()));
     if (cityIndex !== -1 && words.length > cityIndex + 1) {
@@ -101,39 +104,32 @@ async function fetchWeatherData(city) {
 }
 
 function formatWeatherResponse(data) {
-    return `Current weather in ${data.name}: ${data.weather[0].description}, Temperature: ${data.main.temp}°C, Humidity: ${data.main.humidity}%, Wind Speed: ${data.wind.speed} m/s.`;
+    return `🌤️ Current weather in ${data.name}: ${data.weather[0].description}, 🌡️ Temp: ${data.main.temp}°C, 💧 Humidity: ${data.main.humidity}%, 🌬️ Wind: ${data.wind.speed} m/s.`;
 }
 
 async function handleGeneralQuery(message) {
-    try {
-        const response = await fetchGeminiResponse(message);
-        removeTypingIndicator();
-        displayMessage(response, 'bot');
-    } catch (error) {
-        removeTypingIndicator();
-        displayMessage("I'm sorry, I couldn't process your request.", 'bot');
+    const lowerMessage = message.toLowerCase();
+
+    let response;
+    
+    // Handle common non-weather queries
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+        response = "👋 Hi there! How can I assist you today?";
+    } else if (lowerMessage.includes('how are you')) {
+        response = "😊 I'm just a bot, but thanks for asking! How about you?";
+    } else if (lowerMessage.includes('joke')) {
+        response = "😂 Why don't scientists trust atoms? Because they make up everything!";
+    } else if (lowerMessage.includes('time')) {
+        const currentTime = new Date().toLocaleTimeString();
+        response = `🕒 The current time is ${currentTime}.`;
+    } else if (lowerMessage.includes('date')) {
+        const currentDate = new Date().toLocaleDateString();
+        response = `📅 Today's date is ${currentDate}.`;
+    } else {
+        // If it's an unknown question, use a mock response to avoid API error.
+        response = "🤖 I'm sorry, I couldn't find an answer for that right now. How about asking me a weather question or something else fun?";
     }
-}
-
-async function fetchGeminiResponse(message) {
-    try {
-        const response = await fetch('https://gemini-api-endpoint.com/query', { // Replace with actual Gemini API endpoint
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${geminiApiKey}`
-            },
-            body: JSON.stringify({ query: message })
-        });
-
-        if (!response.ok) {
-            throw new Error('Gemini API error.');
-        }
-
-        const data = await response.json();
-        return data.reply; // Adjust based on Gemini API response structure
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
+    
+    removeTypingIndicator();
+    displayMessage(`🤖 ${response}`, 'bot');
 }

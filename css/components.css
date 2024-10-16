@@ -1,6 +1,8 @@
 /* Weather Widget and Forecast Widget Styling */
+
+/* Adjust widget styling */
 .weather-widget {
-    background-color: #f8f0fc; /* Lighter pastel background for widgets */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for the widget */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
