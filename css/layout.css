@@ -54,6 +54,8 @@
 .side-menu ul li a:hover {
     background-color: #8472a1;
     color: #fff;
+    border-radius: 50px;
+    height: max-content;
 }
 
 /* Toggle Button */
