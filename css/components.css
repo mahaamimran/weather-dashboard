@@ -303,4 +303,46 @@ td {
         width: 100%;
         margin-top: 10px;
     }
+
+    /* Stack the two columns vertically on small screens */
+    .content-columns {
+        flex-direction: column;
+        height: auto; /* No fixed height */
+        gap: 20px;
+    }
+
+    .left-column, .right-column {
+        flex: none; /* Remove flex-grow */
+        width: 100%; /* Take full width */
+        height: auto; /* Adjust height */
+        min-height: 0; /* Remove minimum height */
+    }
+
+    /* Reduce table font size and padding on small screens */
+    th, td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    /* Adjust button sizes for smaller screens */
+    .filter-btn, .pagination button {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+}
+
+/* For very small screens, reduce margins and padding */
+@media (max-width: 480px) {
+    .top-bar {
+        padding: 5px 10px;
+    }
+
+    .filter-btn, .pagination button {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    .left-column h2, .right-column h2 {
+        font-size: 1.4rem;
+    }
 }
