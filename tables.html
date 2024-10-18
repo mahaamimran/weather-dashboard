@@ -14,7 +14,6 @@
     <!-- External CSS for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-
 <body>
     <!-- Side Menu -->
     <nav id="sidebar" class="side-menu">
@@ -35,9 +34,24 @@
                 <input type="text" id="city-input" placeholder="Search city" class="search-bar">
                 <button id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
             </div>
-        </div>
-        <section>
 
+            <!-- Temperature Unit Buttons -->
+            <div class="unit-buttons">
+                <input type="radio" id="celsius" name="unit" value="metric" class="unit-input" checked>
+                <label for="celsius" class="unit-label">C</label>
+            
+                <input type="radio" id="fahrenheit" name="unit" value="imperial" class="unit-input">
+                <label for="fahrenheit" class="unit-label">F</label>
+            </div>
+            
+
+            <!-- Profile Picture -->
+            <div class="profile-dropdown">
+                <img src="assets/images/profile.png" alt="Profile Picture" class="profile-pic" id="profile-pic">
+            </div>
+        </div>
+
+        <section>
             <div class="filter-buttons">
                 <button id="sort-asc" class="filter-btn">Sort Ascending</button>
                 <button id="sort-desc" class="filter-btn">Sort Descending</button>
@@ -46,12 +60,12 @@
                 <button id="show-highest-temp" class="filter-btn">Show Highest Temp</button>
             </div>
         </section>
+
         <br>
         <!-- Two Columns: One for the 5-day forecast, one for the chatbot -->
         <div class="content-columns">
             <div class="left-column" id="forecast-container">
                 <h2>5-Day Forecast</h2>
-                <!-- Table for forecast -->
                 <table id="forecast-table">
                     <thead>
                         <tr>
@@ -82,12 +96,9 @@
                         <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </section>
-
-
             </div>
         </div>
         <br>
-       
     </main>
 
     <!-- Link to JavaScript -->

@@ -2,6 +2,18 @@ const apiKey = '796af28caa3c79132d85d04210976a50';
 let allForecastData = [];
 let currentPage = 1;
 const entriesPerPage = 5;
+let unit = 'metric'; // Default to Celsius
+
+// Event listener for unit change (radio buttons)
+document.querySelectorAll('input[name="unit"]').forEach(input => {
+    input.addEventListener('change', function() {
+        unit = this.value; // 'metric' for Celsius, 'imperial' for Fahrenheit
+        const city = document.getElementById('city-input').value.trim();
+        if (city) {
+            fetchFiveDayForecast(city); // Refetch data based on the new unit
+        }
+    });
+});
 
 // Event listener for the search button
 document.getElementById('search-btn').addEventListener('click', () => {
@@ -17,7 +29,7 @@ document.getElementById('search-btn').addEventListener('click', () => {
 async function fetchFiveDayForecast(city) {
     try {
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
+            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`
         );
         if (!response.ok) {
             throw new Error('City not found.');
@@ -31,10 +43,12 @@ async function fetchFiveDayForecast(city) {
 
 // Process the 5-day forecast data and store it in allForecastData
 function processForecastData(data) {
+    const tempUnit = unit === 'metric' ? '°C' : '°F'; // Adjust unit display
     const forecastData = data.list.map(entry => ({
         date: entry.dt_txt,  // Date and time of forecast
         avgTemp: entry.main.temp.toFixed(2),  // Temperature
-        weather: entry.weather[0].description // Weather description
+        weather: entry.weather[0].description, // Weather description
+        tempUnit: tempUnit // Add unit to the data
     }));
 
     allForecastData = forecastData;
@@ -56,7 +70,7 @@ function populateForecastTable(data) {
     paginatedData.forEach(item => {
         const row = `<tr>
             <td>${item.date}</td>
-            <td>${item.avgTemp} °C</td>
+            <td>${item.avgTemp} ${item.tempUnit}</td>  <!-- Use the unit -->
             <td>${item.weather}</td>
         </tr>`;
         tableBody.insertAdjacentHTML('beforeend', row);

@@ -1,22 +1,24 @@
-async function fetchFiveDayForecast(city) {
+async function fetchFiveDayForecast(city, unit = 'metric') {
     const apiKey = '796af28caa3c79132d85d04210976a50';
+    const unitLabel = unit === 'metric' ? '°C' : '°F'; 
 
     try {
         showSpinner();
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
+            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`
         );
         hideSpinner();
         if (!response.ok) {
             throw new Error('Failed to fetch 5-day forecast.');
         }
         const data = await response.json();
-        initializeCharts(data);
+        initializeCharts(data, unitLabel);
     } catch (error) {
         console.error(error);
     }
 }
-function initializeCharts(forecastData) {
+
+function initializeCharts(forecastData, unitLabel) {
     const labels = forecastData.list.map(item => item.dt_txt.split(' ')[0]);
 
     // Bar Chart (Temperatures for 5 days with delay animation)
@@ -26,7 +28,7 @@ function initializeCharts(forecastData) {
         data: {
             labels,
             datasets: [{
-                label: 'Temperature (°C)',
+                label: `Temperature (${unitLabel})`,
                 data: forecastData.list.map(item => item.main.temp),
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -81,7 +83,7 @@ function initializeCharts(forecastData) {
         data: {
             labels,
             datasets: [{
-                label: 'Temperature (°C)',
+                label: `Temperature (${unitLabel})`,
                 data: forecastData.list.map(item => item.main.temp),
                 backgroundColor: 'rgba(153, 102, 255, 0.6)',
                 borderColor: 'rgba(153, 102, 255, 1)',

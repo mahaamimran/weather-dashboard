@@ -20,8 +20,6 @@
 </head>
 
 <body>
-
-
     <!-- Side Menu -->
     <nav id="sidebar" class="side-menu">
         <a href="index.html" class="logo-link">
@@ -40,7 +38,23 @@
                 <input type="text" id="city-input" placeholder="Search city" class="search-bar">
                 <button id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
             </div>
+
+            <!-- Temperature Unit Buttons -->
+            <div class="unit-buttons">
+                <input type="radio" id="celsius" name="unit" value="metric" class="unit-input" checked>
+                <label for="celsius" class="unit-label">C</label>
+
+                <input type="radio" id="fahrenheit" name="unit" value="imperial" class="unit-input">
+                <label for="fahrenheit" class="unit-label">F</label>
+            </div>
+
+
+            <!-- Profile Picture -->
+            <div class="profile-dropdown">
+                <img src="assets/images/profile.png" alt="Profile Picture" class="profile-pic" id="profile-pic">
+            </div>
         </div>
+
         <!-- Spinner for loading data -->
         <div id="spinner" class="spinner hidden"></div>
 
@@ -74,7 +88,6 @@
     </script>
     <script src="js/main.js"></script>
     <script src="js/charts.js"></script>
-
 </body>
 
 

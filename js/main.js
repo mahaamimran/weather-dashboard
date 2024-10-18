@@ -1,4 +1,17 @@
 const apiKey = '796af28caa3c79132d85d04210976a50';
+let unit = 'metric';  // Default to Celsius
+
+// Add event listener to update the unit when the toggle is changed
+document.querySelectorAll('input[name="unit"]').forEach(input => {
+    input.addEventListener('change', (event) => {
+        unit = event.target.value;
+        const city = document.getElementById('city-input').value.trim();
+        if (city) {
+            fetchCurrentWeather(city, unit);  // Pass the unit as a parameter
+            fetchFiveDayForecast(city, unit);  // Pass the unit as a parameter
+        }
+    });
+});
 
 document.getElementById('search-btn').addEventListener('click', () => {
     const city = document.getElementById('city-input').value.trim();
@@ -6,51 +19,37 @@ document.getElementById('search-btn').addEventListener('click', () => {
         alert('Please enter a city name.');
         return;
     }
-    fetchCurrentWeather(city);
-    fetchFiveDayForecast(city);
+    fetchCurrentWeather(city, unit);  // Pass the unit as a parameter
+    fetchFiveDayForecast(city, unit);  // Pass the unit as a parameter
 });
 
 // Function to fetch current weather data
-async function fetchCurrentWeather(city) {
+async function fetchCurrentWeather(city, unit) {  // Accept the unit as a parameter
     try {
         showSpinner();
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`
         );
         hideSpinner();
         if (!response.ok) {
             throw new Error('City not found.');
         }
         const data = await response.json();
-        displayCurrentWeather(data);
+        displayCurrentWeather(data, unit);  // Pass the unit to the display function
     } catch (error) {
         alert(error.message);
     }
 }
 
 // Function to display current weather data
-function displayCurrentWeather(data) {
+function displayCurrentWeather(data, unit) {  // Accept the unit as a parameter
+    const tempUnit = unit === 'metric' ? '°C' : '°F';
     const weatherDetails = document.getElementById('weather-details');
     weatherDetails.innerHTML = `
         <div class="weather-info">
             <h2>${data.name}, ${data.sys.country}</h2>
             <p>${data.weather[0].description}</p>
-            <p>Temperature: ${data.main.temp} °C</p>
-            <p>Humidity: ${data.main.humidity}%</p>
-            <p>Wind Speed: ${data.wind.speed} m/s</p>
-        </div>
-        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Weather Icon">
-    `;
-}
-
-// Function to display current weather data and change background
-function displayCurrentWeather(data) {
-    const weatherDetails = document.getElementById('weather-details');
-    weatherDetails.innerHTML = `
-        <div class="weather-info">
-            <h2>${data.name}, ${data.sys.country}</h2>
-            <p>${data.weather[0].description}</p>
-            <p>Temperature: ${data.main.temp} °C</p>
+            <p>Temperature: ${data.main.temp} ${tempUnit}</p>
             <p>Humidity: ${data.main.humidity}%</p>
             <p>Wind Speed: ${data.wind.speed} m/s</p>
         </div>
@@ -83,15 +82,14 @@ function changeBackgroundImage(condition) {
             backgroundImage = 'url("assets/images/windy.png")';
             break;
         default:
-            backgroundImage = 'url("assets/images/default.png")'; // Use a default background if condition doesn't match
+            backgroundImage = 'url("assets/images/default.png")'; // Default background
             break;
     }
 
     document.body.style.backgroundImage = backgroundImage;
 }
 
-
-// Function to manage the spinner visibility
+// Spinner functions
 function showSpinner() {
     document.getElementById('spinner').classList.remove('hidden');
 }
@@ -99,8 +97,3 @@ function showSpinner() {
 function hideSpinner() {
     document.getElementById('spinner').classList.add('hidden');
 }
-
-document.getElementById('hamburger').addEventListener('click', function () {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('hidden'); // Toggle the sidebar's hidden class
-});

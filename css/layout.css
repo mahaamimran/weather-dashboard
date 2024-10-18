@@ -105,18 +105,7 @@ main {
     }
 }
 
-/* Top Bar */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #645394;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    color: white;
-}
+
 
 /* Search Bar */
 .search-container {
@@ -140,4 +129,60 @@ main {
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+/* Unit Buttons Styling (Radio Buttons) */
+.unit-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+    margin-left: auto; /* Push the unit buttons to the right */
+    margin-right: 20px; /* Space on the right for alignment */
+}
+
+.unit-input {
+    display: none; /* Hide the actual radio input */
+}
+
+.unit-label {
+    padding: 5px 15px;
+    background-color: #8472a1;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.unit-input:checked + .unit-label {
+    background-color: #a8a3cc; /* Lighter shade when active */
+    color: white;
+}
+
+.unit-label:hover {
+    background-color: #a8a3cc; /* Lighter purple on hover */
+}
+
+/* Adjust top-bar styling to look cleaner */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #645394;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    color: white;
+    position: relative;
+}
+
+/* Profile Picture styling (unchanged) */
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    margin-left: 20px;
 }
