@@ -23,23 +23,34 @@ document.getElementById('search-btn').addEventListener('click', () => {
     fetchFiveDayForecast(city, unit);  // Pass the unit as a parameter
 });
 
-// Function to fetch current weather data
-async function fetchCurrentWeather(city, unit) {  // Accept the unit as a parameter
-    try {
-        showSpinner();
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`
-        );
-        hideSpinner();
-        if (!response.ok) {
-            throw new Error('City not found.');
+// Function to fetch current weather data using AJAX (XMLHttpRequest)
+function fetchCurrentWeather(city, unit) {
+    const xhr = new XMLHttpRequest();
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+
+    xhr.open('GET', url, true);
+    showSpinner();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) { // Request finished and response is ready
+            hideSpinner();
+            if (xhr.status === 200) {
+                const data = JSON.parse(xhr.responseText);
+                displayCurrentWeather(data, unit);  // Pass the unit to the display function
+            } else {
+                alert('City not found.');
+            }
         }
-        const data = await response.json();
-        displayCurrentWeather(data, unit);  // Pass the unit to the display function
-    } catch (error) {
-        alert(error.message);
-    }
+    };
+
+    xhr.onerror = function () {
+        hideSpinner();
+        alert('An error occurred while fetching the data.');
+    };
+
+    xhr.send(); // Send the request
 }
+
 
 // Function to display current weather data
 function displayCurrentWeather(data, unit) {  // Accept the unit as a parameter
