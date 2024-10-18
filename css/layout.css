@@ -5,40 +5,19 @@
     color: #fff;
     height: 100vh;
     position: fixed;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-/* Hidden sidebar on small screens */
-.side-menu.hidden {
-    transform: translateX(-100%); /* Move sidebar off-screen */
-}
-
-
-/* When the screen width is less than 768px, show the hamburger */
-@media (max-width: 768px) {
-    .side-menu {
-        transform: translateX(-100%); /* Hide sidebar by default on small screens */
-    }
-
-    .hamburger {
-        display: block; /* Show hamburger on small screens */
-    }
-
-    main {
-        margin-left: 0; /* Reset main content margin when sidebar is hidden */
-    }
-
-    .side-menu.active {
-        transform: translateX(0); /* Show sidebar when active */
-    }
+    transition: transform 0.3s ease, width 0.3s ease; /* Smooth transition */
 }
 
 .logo {
     width: 80px;
     margin: 20px 0;
     filter: brightness(0) invert(1);
+    transition: width 0.3s ease;
 }
 
 .logo-link {
@@ -58,13 +37,15 @@
     width: 100%;
     padding: 15px;
     text-align: center;
+    transition: padding 0.3s ease; /* Smooth transition for padding */
 }
 
 .side-menu ul li a {
     color: #fff;
     text-decoration: none;
     display: block;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+    opacity: 1; /* Fully visible text */
 }
 
 .side-menu ul li a:hover {
@@ -80,7 +61,49 @@ main {
     transition: margin-left 0.3s ease;
 }
 
+/* When screen size is less than 768px */
+@media (max-width: 768px) {
+    .side-menu {
+        width: 60px; /* Sidebar will collapse to a narrow strip */
+    }
 
+    .logo {
+        width: 40px; /* Reduce logo size */
+    }
+
+    .side-menu ul li {
+        padding: 10px 5px; /* Reduce padding when collapsed */
+    }
+
+    .side-menu ul li a {
+        opacity: 0; /* Hide text when collapsed */
+    }
+
+    /* Sidebar expands when hovered */
+    .side-menu:hover {
+        width: 200px;
+    }
+
+    .side-menu:hover .logo {
+        width: 80px; /* Restore logo size when expanded */
+    }
+
+    .side-menu:hover ul li {
+        padding: 15px; /* Restore padding when expanded */
+    }
+
+    .side-menu:hover ul li a {
+        opacity: 1; /* Show text when expanded */
+    }
+
+    main {
+        margin-left: 60px; /* Adjust main content when sidebar is collapsed */
+    }
+
+    .side-menu:hover main {
+        margin-left: 200px; /* Adjust the main content when sidebar expands on hover */
+    }
+}
 
 /* Top Bar */
 .top-bar {
@@ -117,39 +140,4 @@ main {
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    /* Side Menu should collapse and hamburger icon should show */
-    .side-menu {
-        width: 0;
-        overflow: hidden;
-        transition: width 0.3s ease;
-    }
-
-    .hamburger {
-        display: block; /* Show hamburger on small screens */
-    }
-
-    .side-menu.active {
-        width: 250px;
-    }
-
-    /* Main content should take the full width */
-    main {
-        margin-left: 0;
-        padding: 15px;
-    }
-
-    /* Adjust the top-bar layout */
-    .top-bar {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .search-bar {
-        width: 100%;
-        margin-top: 10px;
-    }
 }

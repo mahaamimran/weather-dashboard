@@ -20,12 +20,13 @@
 </head>
 
 <body>
+
+
     <!-- Side Menu -->
     <nav id="sidebar" class="side-menu">
         <a href="index.html" class="logo-link">
             <img src="assets/images/logo.png" alt="Weather App Logo" class="logo">
         </a>
-
         <ul>
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="tables.html">Tables</a></li>
@@ -34,7 +35,6 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Updated Top Bar -->
         <div class="top-bar">
             <div class="search-container">
                 <input type="text" id="city-input" placeholder="Search city" class="search-bar">
@@ -42,16 +42,12 @@
             </div>
         </div>
 
-        <!-- Spinner for loading data -->
-        <div id="spinner" class="spinner hidden"></div>
-
         <section class="weather-widget">
             <div class="weather-details" id="weather-details">
                 <!-- Weather data will be injected here dynamically -->
             </div>
         </section>
 
-        <!-- Charts Section -->
         <section class="charts-section">
             <div class="chart-container">
                 <canvas id="barChart"></canvas>
@@ -66,11 +62,15 @@
                 <p class="chart-label">Line Chart</p>
             </div>
         </section>
-
     </main>
-    <!-- Link to JavaScript -->
-    <script src="js/main.js"></script>
-    <script src="js/charts.js"></script>
+
+    <script>
+        // Toggle sidebar visibility on small screens
+        document.getElementById('hamburger').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+    </script>
 </body>
+
 
 </html>
