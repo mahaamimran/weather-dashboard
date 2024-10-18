@@ -1,74 +1,82 @@
-# SE-3003 Web Engineering Assignment 02
+# 🌦️ Weather Dashboard
 
-## Weather Dashboard with Chatbot Integration
+A simple weather dashboard that displays current weather information, a 5-day forecast, and weather-related charts. The project includes a chatbot feature for user interaction.
 
-### **Live Demo**
+## ✨ Features
+- 🌍 Display current weather for any city.
+- 📅 5-day weather forecast with interactive charts (bar, doughnut, and line charts).
+- 🌄 Custom background images that change based on the weather condition.
+- 💬 Chatbot for user interaction.
+- 📱 Responsive design that works across different devices.
+- 🌡️ Switch from Celsius to Fahrenheit.
 
-Access the live project [here](https://yourusername.github.io/weather-dashboard/).
+## 📂 Folder Structure
+Here is the folder structure of the project:
+```
+.
+├── README.md
+├── assets
+│   └── images
+│       ├── images...
+├── css
+│   ├── components.css
+│   ├── general.css
+│   └── layout.css
+├── index.html
+├── js
+│   ├── charts.js
+│   ├── chatbot.js
+│   ├── main.js
+│   └── tables.js
+└── tables.html
+```
 
-### **Features**
+- 📁 `assets/images/`: Contains weather-related background images.
+- 🎨 `css/`: Contains the CSS files for styling the layout, components, and general elements.
+- ⚙️ `js/`: JavaScript files for various features such as charts, chatbot interactions, and weather fetching.
+- 🏠 `index.html`: The main HTML file for the dashboard.
+- 📄 `tables.html`: A separate HTML file that displays weather data in a tabular format.
 
-- **Responsive Design:** Accessible on desktops, tablets, and mobile devices.
-- **Current Weather:** Displays current weather details based on user input or geolocation.
-- **5-Day Forecast:** Visualized using Chart.js with interactive charts.
-- **Chatbot Integration:** Handles both weather-related and general queries using Gemini API.
-- **Unit Conversion:** Toggle between Celsius and Fahrenheit.
-- **Geolocation Support:** Automatically fetches weather based on your location.
-- **Loading Indicators:** Enhances user experience during data fetching.
-- **Error Handling:** Gracefully manages invalid inputs and API errors.
+## 🚀 How to Run
 
-### **Technologies Used**
+### 1. Clone the Repository
+To get started, clone this repository to your local machine:
 
-- **Frontend:** HTML, CSS, JavaScript
-- **APIs:** OpenWeather API, Gemini API
-- **Libraries:** Chart.js
-- **Deployment:** GitHub Pages
+```bash
+git clone https://github.com/mahaamimran/weather-dashboard.git
+```
 
-### **Installation and Setup**
+### 2. Open the Project
+Navigate to the project directory:
 
-1. **Clone the Repository:**
-    ```bash
-    git clone https://github.com/yourusername/weather-dashboard.git
-    ```
+```bash
+cd weather-dashboard
+```
 
-2. **Navigate to the Project Directory:**
-    ```bash
-    cd weather-dashboard
-    ```
+### 3. Open in Browser
+Simply open the `index.html` file in any modern web browser:
 
-3. **Open `index.html` in Your Browser:**
-    - You can use Live Server extension in VS Code for a better development experience.
+```bash
+open index.html
+```
 
-4. **Configure API Keys:**
-    - Replace `'YOUR_OPENWEATHER_API_KEY'` and `'YOUR_GEMINI_API_KEY'` in the JavaScript files with your actual API keys.
+## 🛠️ Technologies Used
+- **HTML**: For the structure of the web pages.
+- **CSS**: For styling the layout and components (using `components.css`, `general.css`, and `layout.css`).
+- **JavaScript**: For handling API calls, displaying weather data, chatbot interaction, and creating charts.
+- **Chart.js**: Used to create bar, doughnut, and line charts for weather data visualization.
+- **OpenWeatherMap API**: For fetching current weather and 5-day forecast data.
 
-### **Usage**
+## 🔑 APIs
+This project uses Gemini API for the chatbot, and the Open Weather API for fetching the weather details.
 
-1. **Search for a City:**
-   - Enter the city name in the search bar and click **Search**.
+## 🖼️ Screenshots
+### 🌦️ Weather Dashboard Overview
+![Weather Dashboard](./assets/github-images/screenshot1.png)
 
-2. **View Weather Details:**
-   - Current weather information and 5-day forecast will be displayed.
+### 📊 5-Day Forecast and Charts
+![Forecast and Charts](./assets/github-images/screenshot2.png)
 
-3. **Interact with Charts:**
-   - Explore the vertical bar chart, doughnut chart, and line chart representing various weather metrics.
+---
 
-4. **Use the Chatbot:**
-   - Ask general or weather-related questions in the chatbot interface.
-
-5. **Navigate Tables:**
-   - Visit the **Tables** page to view detailed forecast data with pagination.
-
-### **Contributing**
-
-Contributions are welcome! Please fork the repository and create a pull request for any enhancements or bug fixes.
-
-### **License**
-
-This project is licensed under the [MIT License](LICENSE).
-
-### **Acknowledgments**
-
-- [OpenWeather](https://openweathermap.org/)
-- [Chart.js](https://www.chartjs.org/)
-- [Gemini API](https://ai.google.dev/aistudio)
+This version of your `README.md` includes emojis to make the content more visually engaging. Feel free to further customize the emojis as per your project’s tone!
