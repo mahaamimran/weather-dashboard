@@ -10,9 +10,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.3s ease, width 0.3s ease; /* Smooth transition */
+    transition: transform 0.3s ease, width 0.3s ease;
 }
 
+/* Logo Styling */
 .logo {
     width: 80px;
     margin: 20px 0;
@@ -27,6 +28,7 @@
     justify-content: center;
 }
 
+/* Sidebar Menu */
 .side-menu ul {
     list-style: none;
     padding: 0;
@@ -37,7 +39,7 @@
     width: 100%;
     padding: 15px;
     text-align: center;
-    transition: padding 0.3s ease; /* Smooth transition for padding */
+    transition: padding 0.3s ease;
 }
 
 .side-menu ul li a {
@@ -45,7 +47,7 @@
     text-decoration: none;
     display: block;
     transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
-    opacity: 1; /* Fully visible text */
+    opacity: 1;
 }
 
 .side-menu ul li a:hover {
@@ -61,51 +63,18 @@ main {
     transition: margin-left 0.3s ease;
 }
 
-/* When screen size is less than 768px */
-@media (max-width: 768px) {
-    .side-menu {
-        width: 60px; /* Sidebar will collapse to a narrow strip */
-    }
-
-    .logo {
-        width: 40px; /* Reduce logo size */
-    }
-
-    .side-menu ul li {
-        padding: 10px 5px; /* Reduce padding when collapsed */
-    }
-
-    .side-menu ul li a {
-        opacity: 0; /* Hide text when collapsed */
-    }
-
-    /* Sidebar expands when hovered */
-    .side-menu:hover {
-        width: 200px;
-    }
-
-    .side-menu:hover .logo {
-        width: 80px; /* Restore logo size when expanded */
-    }
-
-    .side-menu:hover ul li {
-        padding: 15px; /* Restore padding when expanded */
-    }
-
-    .side-menu:hover ul li a {
-        opacity: 1; /* Show text when expanded */
-    }
-
-    main {
-        margin-left: 60px; /* Adjust main content when sidebar is collapsed */
-    }
-
-    .side-menu:hover main {
-        margin-left: 200px; /* Adjust the main content when sidebar expands on hover */
-    }
+/* Top bar styling */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #645394;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    color: white;
 }
-
-
 
 /* Search Bar */
 .search-container {
@@ -135,14 +104,14 @@ main {
 .unit-buttons {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align buttons to the right */
+    justify-content: flex-end;
     gap: 10px;
-    margin-left: auto; /* Push the unit buttons to the right */
-    margin-right: 20px; /* Space on the right for alignment */
+    margin-left: auto;
+    margin-right: 20px;
 }
 
 .unit-input {
-    display: none; /* Hide the actual radio input */
+    display: none;
 }
 
 .unit-label {
@@ -155,34 +124,91 @@ main {
 }
 
 .unit-input:checked + .unit-label {
-    background-color: #a8a3cc; /* Lighter shade when active */
+    background-color: #a8a3cc;
     color: white;
 }
 
 .unit-label:hover {
-    background-color: #a8a3cc; /* Lighter purple on hover */
+    background-color: #a8a3cc;
 }
 
-/* Adjust top-bar styling to look cleaner */
-.top-bar {
+/* Profile Picture styling */
+.profile-section {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #645394;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    color: white;
-    position: relative;
 }
 
-/* Profile Picture styling (unchanged) */
 .profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
     object-fit: cover;
-    margin-left: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .side-menu {
+        width: 60px;
+    }
+
+    .logo {
+        width: 40px;
+    }
+
+    .side-menu ul li {
+        padding: 10px 5px;
+    }
+
+    .side-menu ul li a {
+        opacity: 0;
+    }
+
+    .side-menu:hover {
+        width: 200px;
+    }
+
+    .side-menu:hover .logo {
+        width: 80px;
+    }
+
+    .side-menu:hover ul li {
+        padding: 15px;
+    }
+
+    .side-menu:hover ul li a {
+        opacity: 1;
+    }
+
+    main {
+        margin-left: 60px;
+    }
+
+    .side-menu:hover main {
+        margin-left: 200px;
+    }
+
+    /* Adjust top-bar elements for smaller screens */
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Search Bar reduces width */
+    .search-bar {
+        position: relative;
+        width: 150px; /* Reduced width for small screens */
+    }
+    .search-btn {
+        position: relative;
+    }
+
+    .unit-buttons {
+        display: none; /* Hide buttons on small screens */
+    }
+
+    .profile-section {
+        display: none; /* Hide profile picture on small screens */
+    }
 }
